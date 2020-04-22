@@ -7,7 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const style = {
-    flexGrow: 1
+    flexGrow: 1,
+    justifyContent: 'center'
 }
 const NavBar = () => {
     return (
@@ -26,5 +27,6 @@ const NavBar = () => {
         </div>
     )
 }
+
 
 export default NavBar;

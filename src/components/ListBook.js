@@ -39,7 +39,7 @@ class ListBook extends Component {
     deleteBook(BookId) {
         ApiService.deleteBook(BookId)
            .then((res) => {
-               this.setState({message : 'User deleted successfully.'});
+               this.setState({message : 'book deleted successfully.'});
                this.setState({books: this.state.books.filter(book => book.bookId !== BookId)});
            })
 
@@ -60,15 +60,15 @@ class ListBook extends Component {
             <div>
                <Typography variant="h4" style={style}>Book Details</Typography>
                <Button variant="contained" color="primary" onClick={() => this.addBook()}> Add Book</Button>
-                <Table>
-                <TableHead>
+                <Table variant="dark">
+                <TableHead  style={styles}>
                      <TableRow>
-                     <TableCell align="center">BookId</TableCell>
-                     <TableCell align="center">BookName</TableCell> 
-                     <TableCell align="center">Edition</TableCell> 
-                     <TableCell align="center">Author</TableCell>
-                     <TableCell align="center">Date</TableCell>
-                     <TableCell align="center">Amount</TableCell>
+                     <TableCell variant="h6" align="center">BOOKID</TableCell>
+                     <TableCell variant="h6" align="center">BOOKNAME</TableCell> 
+                     <TableCell  variant="h6" align="center">EDITION</TableCell> 
+                     <TableCell variant="h6" align="center">AUTHOR</TableCell>
+                     <TableCell  variant="h6" align="center">DATE</TableCell>
+                      <TableCell  variant="h6" align="center">AMOUNT</TableCell>
                      </TableRow>
                  </TableHead>
                     <TableBody>
@@ -99,7 +99,9 @@ class ListBook extends Component {
         justifyContent: 'center',
         color:'black'
     }
-
+const styles={
+    color :'#0f347f'
+}
 
 export default ListBook;
 
