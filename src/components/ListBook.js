@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import ApiService from "../service/ApiService";
-import { Button } from 'react-bootstrap';
-import './pagination';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from '@material-ui/core/Typography';
+
 
 class ListBook extends Component {
 
@@ -50,43 +58,49 @@ class ListBook extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Book Details</h2>
-                <button className="btn btn-primary" onClick={() => this.addBook()}> Add Book</button>
-                <table className="table table-striped table-dark">
-                <thead>
-                     <tr>
-                         <th className="hidden">BookId</th>
-                         <th >BookName</th> 
-                         <th>Edition</th> 
-                         <th >Author</th>
-                         <th >Date</th>
-                         <th >Amount</th>
-                         <th>Action</th>
-                     </tr>
-                 </thead>
-                    <tbody>
-                        {this.state.books && this.state.books.map(book => (
-                       <tr key={book.bookId}>
-                                        <td >{book.bookId}</td>
-                                        <td >{book.bookname}</td>
-                                        <td >{book.edition}</td>
-                                        <td>{book.author}</td>
-                                        <td >{book.date}</td>
-                                        <td >{book.amount}</td>
-                                        <td>
-                                            <Button className="btn btn-danger" onClick={() => this.deleteBook(book.bookId)}> Delete</Button> </td>
-                                            <td>  <Button className="btn btn-success" onClick={() => this.editBook(book.bookId)}> Edit</Button>
-                                        </td>
-                                    </tr>
+               <Typography variant="h4" style={style}>Book Details</Typography>
+               <Button variant="contained" color="primary" onClick={() => this.addBook()}> Add Book</Button>
+                <Table>
+                <TableHead>
+                     <TableRow>
+                     <TableCell align="center">BookId</TableCell>
+                     <TableCell align="center">BookName</TableCell> 
+                     <TableCell align="center">Edition</TableCell> 
+                     <TableCell align="center">Author</TableCell>
+                     <TableCell align="center">Date</TableCell>
+                     <TableCell align="center">Amount</TableCell>
+                     </TableRow>
+                 </TableHead>
+                    <TableBody>
+                        {this.state.books && this.state.books.map(row => (
+                       <TableRow key={row.bookId}>
+                           <TableCell align="center" component="th" scope="row">
+                                    {row.bookId}
+                                </TableCell>
+                                        <TableCell align="center">{row.bookname}</TableCell>
+                                        <TableCell align="center">{row.edition}</TableCell>
+                                        <TableCell align="center">{row.author}</TableCell>
+                                        <TableCell align="center" >{row.date}</TableCell>
+                                        <TableCell align="center">{row.amount}</TableCell>
+                                        <TableCell align="left" onClick={() => this.editBook(row.bookId)}> <CreateIcon /></TableCell>
+                                        <TableCell align="left" onClick={() => this.deleteBook(row.bookId)}> <DeleteIcon /></TableCell>
+                                        
+                                       
+                                    </TableRow>
                         ))}       
-                    </tbody>
-                </table>
-            <pagination />
+                    </TableBody>
+                </Table>
             </div>
         );
     }
-
 }
+    const style ={
+        display: 'flex',
+        justifyContent: 'center',
+        color:'black'
+    }
+
+
 export default ListBook;
 
 //     state = {

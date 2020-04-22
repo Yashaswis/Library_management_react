@@ -3,6 +3,7 @@ import { Container, Button } from 'react-bootstrap';
 import ApiService from "../service/ApiService"; 
 // import ListBook from './ListBook'; 
 // import AddBook from './AddBook';
+import Typography from '@material-ui/core/Typography';
 import { Row, Form, Col} from 'react-bootstrap'; 
 
 class EditBook extends Component{
@@ -54,7 +55,7 @@ onChange = (e) =>
   render(){
     return(
     <div>
-      <h2 className="text-center">Edit User</h2>
+      <Typography  variant="h4" style={style} >Edit Book</Typography>
       <Row>  
             <Col sm={6}>  
               <Form>  
@@ -63,10 +64,9 @@ onChange = (e) =>
                   <Form.Control  
                     type="text"  
                     name="bookname"  
-                    defaultValue={this.state.bookname}  
-                    onChange={this.onChange}
-                    readOnly="true"  
-                    placeholder="Book Name"  required/>  
+                    value={this.state.bookname}  
+                    onChange={this.onChange}  
+                    placeholder="Book Name"/>  
                 </Form.Group>  
                 <Form.Group controlId="author">  
                   <Form.Label>Author</Form.Label>  
@@ -75,7 +75,7 @@ onChange = (e) =>
                     name="author"  
                     value={this.state.author}  
                     onChange={this.onChange}  
-                    placeholder="author" required />  
+                    placeholder="author"  />  
                 </Form.Group>  
                 <Form.Group controlId="edition">  
                   <Form.Label>Edition</Form.Label>  
@@ -84,7 +84,7 @@ onChange = (e) =>
                     name="edition"  
                     value={this.state.edition}  
                     onChange={this.onChange}  
-                    placeholder="edition" required />  
+                    placeholder="edition"  />  
                 </Form.Group>  
                 <Form.Group controlId="date">  
                   <Form.Label>Date</Form.Label>  
@@ -93,7 +93,7 @@ onChange = (e) =>
                     name="date"  
                     value={this.state.date}  
                     onChange={this.onChange}  
-                    placeholder="date" required/>  
+                    placeholder="date" />  
                 </Form.Group>  
                 <Form.Group controlId="amount">  
                   <Form.Label>Amount</Form.Label>  
@@ -102,7 +102,7 @@ onChange = (e) =>
                     name="amount"  
                     value={this.state.amount}  
                     onChange={this.onChange}  
-                    placeholder="amount" required />  
+                    placeholder="amount"  />  
                 </Form.Group>  
                 <Form.Group>  
                   <Button variant="success" type="submit" onClick={this.saveBook}>Update</Button>            
@@ -113,5 +113,10 @@ onChange = (e) =>
     </div> 
     );
   }
+}
+const style ={
+  display: 'flex',
+  justifyContent: 'center',
+  color:'black'
 }
 export default EditBook;
