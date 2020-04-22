@@ -1,64 +1,46 @@
 import React, { Component } from 'react';  
 import { Row, Form, Col, Button } from 'react-bootstrap'; 
-
-class AddBook extends Component{
+import ApiService from "../service/ApiService";
+class AddBook extends React.Component{
     constructor(props) {  
         super(props);  
-       
-        this.initialState = {
-            bookId:'',
+        this.state = {
             bookname:'',
             edition:'',
             author:'',
             date:'',
             amount:'',
+            message: null
 }
-if (props.book.bookId) {  
-    this.state = props.book  
-  } else {  
-    this.state = this.initialState;  
-  }  
+this.saveBook = this.saveBook.bind(this); 
+this.onChange = this.onChange.bind(this);    
+}
+saveBook = (e) => {
+  e.preventDefault();
+  let book = {bookname: this.state.bookname, edition: this.state.edition, author: this.state.author, date: this.state.date, amount: this.state.amount};
+  ApiService.addBook(book)
+      .then(res => {
+          this.setState({message : 'books added successfully.'});
+          this.props.history.push('/books');
+      });
+}
+onChange = (e) =>
+        this.setState({ [e.target.name]: e.target.value }); 
 
-  this.handleInputChange = this.handleInputChange.bind(this);  
-  this.handleSubmit = this.handleSubmit.bind(this);  
-}
-handleInputChange(event) {  
-    const name = event.target.name;  
-    const value = event.target.value;  
-  
-    this.setState({  
-      [name]: value  
-    })  
-  } 
-  handleSubmit(event) {  
-    event.preventDefault();  
-    this.props.onFormSubmit(this.state);  
-    this.setState(this.initialState);  
-  } 
-  render() {  
-    let pageTitle;  
-    let actionStatus;  
-    if (this.state.bookId) {  
-  
-      pageTitle = <h2>Edit Book</h2>  
-      actionStatus = <b>Update</b>  
-    } else {  
-      pageTitle = <h2>Add Book</h2>  
-      actionStatus = <b>Save</b>  
-    } 
+    render() {  
     return (  
         <div>        
-          <h2> {pageTitle}</h2>  
+          <h2> Add Book</h2>  
           <Row>  
-            <Col sm={7}>  
-              <Form onSubmit={this.handleSubmit}>  
+            <Col sm={6}>  
+              <Form >  
                 <Form.Group controlId="bookname">  
                   <Form.Label>Book Name</Form.Label>  
                   <Form.Control  
                     type="text"  
                     name="bookname"  
                     value={this.state.bookname}  
-                    onChange={this.handleInputChange}  
+                    onChange={this.onChange}  
                     placeholder="Book Name"  required/>  
                 </Form.Group>  
                 <Form.Group controlId="author">  
@@ -67,7 +49,7 @@ handleInputChange(event) {
                     type="text"  
                     name="author"  
                     value={this.state.author}  
-                    onChange={this.handleInputChange}  
+                    onChange={this.onChange}  
                     placeholder="author" required />  
                 </Form.Group>  
                 <Form.Group controlId="edition">  
@@ -76,16 +58,16 @@ handleInputChange(event) {
                     type="number"  
                     name="edition"  
                     value={this.state.edition}  
-                    onChange={this.handleInputChange}  
+                    onChange={this.onChange}  
                     placeholder="edition" required />  
                 </Form.Group>  
                 <Form.Group controlId="date">  
                   <Form.Label>Date</Form.Label>  
                   <Form.Control  
-                    type="date"  
+                    type="text"  
                     name="date"  
                     value={this.state.date}  
-                    onChange={this.handleInputChange}  
+                    onChange={this.onChange}  
                     placeholder="date" required/>  
                 </Form.Group>  
                 <Form.Group controlId="amount">  
@@ -94,12 +76,11 @@ handleInputChange(event) {
                     type="number"  
                     name="amount"  
                     value={this.state.amount}  
-                    onChange={this.handleInputChange}  
+                    onChange={this.onChange}  
                     placeholder="amount" required />  
                 </Form.Group>  
-                <Form.Group>
-                  <Form.Control type="hidden" name="bookId" value={this.state.bookId} />  
-                  <Button variant="success" type="submit">{actionStatus}</Button>            
+                <Form.Group>  
+                  <Button variant="success" type="submit" onClick={this.saveBook}>Save</Button>            
                 </Form.Group>  
               </Form>  
             </Col>  
